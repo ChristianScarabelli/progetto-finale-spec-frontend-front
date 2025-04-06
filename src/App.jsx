@@ -1,9 +1,35 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+// Layout
+import DefaultLayout from "./layout/DefaultLayout"
+import BlankLayout from "./layout/BlankLayout"
+// Pages
+import NotFound from "./pages/NotFound"
+import HomePage from "./pages/HomePage.jsx"
+import FoodList from "./pages/FoodList"
+
+import TaskDetail from './pages/TaskDetail.jsx'  // foodDetail
+// Context
+import { GlobalProvider } from "./contexts/GlobalContext"
 
 function App() {
 
-
   return (
-    <h1 className="text-2xl text-blue-600">prova</h1>
+    <GlobalProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* DefaultLayout per la home e le altre pagine principali */}
+          <Route element={<DefaultLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/foods" element={<FoodList />} />
+
+          </Route>
+          {/* BlankLayout per pagina 404 */}
+          <Route element={<BlankLayout />}>
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </GlobalProvider>
   )
 }
 
