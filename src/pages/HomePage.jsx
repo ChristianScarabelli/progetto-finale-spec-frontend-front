@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HomePage() {
     return (
         <section className="pt-[82px]">
@@ -5,7 +7,30 @@ export default function HomePage() {
                 <h1 className="text-5xl text-green-800 py-5">Discover Vegan food!</h1>
                 <p className="text-gray-700 mb-5">Discover a world of delicious and nutritious vegan food. With VeganBites, you can easily search for plant-based recipes, explore ingredients, and analyze nutritional values to make informed choices.
                     Whether you're a seasoned vegan or just curious, our platform helps you find the perfect meal tailored to your taste and health goals. Dive into a world of fresh, wholesome flavors – because eating well should be simple and exciting!
-                    Start exploring now and fuel your body with the best plant-powered options!</p>
+                    Start exploring now and fuel your body with the best plant-powered options!
+                </p>
+                <div className="my-10 text-center">
+                    <Link
+                        to="/foods"
+                        className="bg-green-600 text-gray-50 px-15 py-3 rounded-xl hover:bg-cyan-600 transition inline-flex items-center gap-2"
+                    >
+                        <span>Click here to search Food!</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-5 h-5 text-gray-50"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+                            />
+                        </svg>
+                    </Link>
+                </div>
             </div>
             <div className="flex items-center justify-between gap-5 pb-5 p-5 bg-green-200">
                 <div className="flex-1 p-3">

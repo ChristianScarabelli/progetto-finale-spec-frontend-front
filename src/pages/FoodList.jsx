@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState, useRef } from 'react'
 import GlobalContext from '../contexts/GlobalContext.jsx'
 import FoodRow from '../components/FoodRow.jsx'
 
@@ -29,16 +29,20 @@ export default function FoodList() {
     const [sortBy, setSortBy] = useState('');
     // Stato per la direzione di ordinamento
     const [sortOrder, setSortOrder] = useState(1);
-
     // Stato per la ricerca
     const [searchQuery, setSearchQuery] = useState('');
-
     // Stato per la categoria selezionata
     const [selectedCategory, setSelectedCategory] = useState('');
+    // Stati per gestire il tooltip
+    const [tooltip, setTooltip] = useState({ visible: false, content: '', position: { x: 0, y: 0 } });
+    const [tooltipTimeout, setTooltipTimeout] = useState(null);
+    // Stato per il ref della ricerca per autofocus
+    const inputRef = useRef(null)
 
     useEffect(() => {
-        fetchFood();
-    }, []);
+        fetchFood()
+        inputRef.current?.focus()
+    }, [])
 
     // Funzione per gestire l'ordine
     const handleSort = (field) => {
@@ -86,25 +90,50 @@ export default function FoodList() {
     // Funzione per la ricerca con debounce
     const handleDebouncedSearch = useCallback(debounce(setSearchQuery, 500), [])
 
+
+
+    // Funzione per mostrare il tooltip
+    const showTooltip = (content, event) => {
+        const { pageX, pageY } = event; // Ottengo la posizione del mouse rispetto alla pagina
+        setTooltipTimeout(
+            setTimeout(() => {
+                setTooltip({
+                    visible: true,
+                    content,
+                    position: { x: pageX, y: pageY },
+                });
+            }, 300)
+        );
+    };
+
+    // Funzione per nascondere il tooltip
+    const hideTooltip = () => {
+        clearTimeout(tooltipTimeout); // Cancello il timeout se l'utente lascia prima
+        setTooltip({ visible: false, content: '', position: { x: 0, y: 0 } });
+    };
+
     return (
         <section className="pt-[82px] p-5 bg-green-200">
-            <h1 className="text-5xl text-green-800 py-5">Food List</h1>
-            <p className="text-gray-700 mb-5">
-                Here's the complete list of Vegan food! Search your favourite, sort them and add them to your wish list!
-            </p>
-            <div className="my-5 pt-10 p-5 text-center">
-                <input
-                    type="text"
-                    className="text-gray-800 bg-gray-50 rounded-xl px-5 py-3 w-2/3"
-                    placeholder="Search food for name..."
-                    onChange={(e) => handleDebouncedSearch(e.target.value)}
-                />
+            <div className='container mx-auto'>
+                <h1 className="text-5xl text-green-800 py-5 text-center">Food List</h1>
+                <p className="text-gray-700 mb-5 text-center">
+                    Here's the complete list of Vegan food! Search your favourite, sort them and add them to your wish list!
+                </p>
+                <div className="my-5 pt-10 p-5 text-center">
+                    <input
+                        type="text"
+                        ref={inputRef}
+                        className="text-gray-800 bg-gray-50 rounded-xl px-5 py-3 w-2/3"
+                        placeholder="Search food for name..."
+                        onChange={(e) => handleDebouncedSearch(e.target.value)}
+                    />
+                </div>
             </div>
             <section className="container mx-auto">
                 {/* Select per il filtro */}
                 <div className="flex justify-end max-w-4xl mx-auto pb-5">
                     <select
-                        className="text-gray-800 bg-gray-50 rounded-lg px-3 py-2"
+                        className="text-gray-700 text-xs bg-gray-50 rounded-lg px-3 py-2"
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
                     >
@@ -118,12 +147,14 @@ export default function FoodList() {
                 </div>
                 {/* Tabella */}
                 <div className="overflow-x-auto mt-10">
-                    <table className="bg-gray-200 max-w-4xl mx-auto w-full shadow-md rounded-lg overflow-hidden text-gray-800 mb-10">
-                        <thead className="bg-gray-800 text-gray-300">
+                    <table className="bg-gray-50 max-w-4xl mx-auto w-full shadow-md rounded-lg overflow-hidden text-gray-700 mb-10">
+                        <thead className="bg-green-800 text-gray-50">
                             <tr>
                                 <th
                                     onClick={() => handleSort('title')}
-                                    className="py-2 px-4 text-left cursor-pointer hover:bg-gray-700"
+                                    onMouseEnter={(e) => showTooltip('Click to sort by Title', e)}
+                                    onMouseLeave={hideTooltip}
+                                    className="py-2 px-4 text-left text-xl cursor-pointer hover:bg-cyan-600"
                                 >
                                     <div className="flex justify-between items-center">
                                         Title
@@ -132,7 +163,9 @@ export default function FoodList() {
                                 </th>
                                 <th
                                     onClick={() => handleSort('category')}
-                                    className="py-2 px-4 text-left cursor-pointer hover:bg-gray-700"
+                                    onMouseEnter={(e) => showTooltip('Click to sort by Category', e)}
+                                    onMouseLeave={hideTooltip}
+                                    className="py-2 px-4 text-left text-xl cursor-pointer hover:bg-cyan-600"
                                 >
                                     <div className="flex justify-between items-center">
                                         Category
@@ -146,12 +179,25 @@ export default function FoodList() {
                                 <FoodRow
                                     key={food.id}
                                     data={food}
-                                    checked={false} // Puoi gestire la selezione se necessario
+                                    checked={false} // gestire la selezione
                                     onToggle={() => { }}
                                 />
                             ))}
                         </tbody>
                     </table>
+                    {/* Tooltip */}
+                    {tooltip.visible && (
+                        <div
+                            className="absolute bg-gray-700 text-gray-50 text-xs rounded-lg px-3 py-2 shadow-lg"
+                            style={{
+                                top: tooltip.position.y + 10, // Tooltip leggermente sotto il mouse
+                                left: tooltip.position.x + 10,
+                                zIndex: 1000,
+                            }}
+                        >
+                            {tooltip.content}
+                        </div>
+                    )}
                 </div>
             </section>
         </section>
