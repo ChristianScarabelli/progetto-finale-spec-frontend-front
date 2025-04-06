@@ -6,8 +6,8 @@ import BlankLayout from "./layout/BlankLayout"
 import NotFound from "./pages/NotFound"
 import HomePage from "./pages/HomePage.jsx"
 import FoodList from "./pages/FoodList"
+import FoodDetail from './pages/FoodDetail.jsx'
 
-import TaskDetail from './pages/TaskDetail.jsx'  // foodDetail
 // Context
 import { GlobalProvider } from "./contexts/GlobalContext"
 
@@ -21,7 +21,7 @@ function App() {
           <Route element={<DefaultLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/foods" element={<FoodList />} />
-
+            <Route path="/foods/:id" element={<FoodDetail />} />
           </Route>
           {/* BlankLayout per pagina 404 */}
           <Route element={<BlankLayout />}>

@@ -11,10 +11,11 @@ export default function useFood() {
     const fetchFood = async () => {
         try {
             const responseFood = await axios.get(`${API_URL}/foods`)
+            console.log("Dati ricevuti dall'API:", responseFood.data)
             setFood(responseFood.data)
         }
         catch (err) {
-            console.error(err)
+            console.error("Errore nel fetch dei dati:", err)
         }
     }
 

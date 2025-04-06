@@ -84,6 +84,8 @@ export default function FoodList() {
             }
             return 0
         })
+        console.log("Dati filtrati e ordinati:", sortedFood); // Debug
+
         return sortedFood
     }, [food, selectedCategory, searchQuery, sortBy, sortOrder])
 
@@ -175,14 +177,17 @@ export default function FoodList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredFood.map((food) => (
-                                <FoodRow
-                                    key={food.id}
-                                    data={food}
-                                    checked={false} // gestire la selezione
-                                    onToggle={() => { }}
-                                />
-                            ))}
+                            {filteredFood.map((food) => {
+                                console.log(food); // Debug: verifica che ogni oggetto abbia un campo `id`
+                                return (
+                                    <FoodRow
+                                        key={food.id}
+                                        data={food}
+                                        checked={false} // gestire la selezione
+                                        onToggle={() => { }}
+                                    />
+                                );
+                            })}
                         </tbody>
                     </table>
                     {/* Tooltip */}
