@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useMemo, useState, useRef } from 'react'
 import GlobalContext from '../contexts/GlobalContext.jsx'
 import FoodRow from '../components/FoodRow.jsx'
+import Loader from '../components/Loader.jsx'
 
 
 // Freccine ordinamento
@@ -23,7 +24,7 @@ function debounce(callback, delay) {
 }
 
 export default function FoodList() {
-    const { food, fetchFood } = useContext(GlobalContext);
+    const { food, fetchFood, isLoading } = useContext(GlobalContext);
 
     // Stato per criterio/colonna di ordinamento
     const [sortBy, setSortBy] = useState('');
@@ -114,6 +115,7 @@ export default function FoodList() {
 
     return (
         <section className="pt-[82px] p-5 bg-green-200">
+            {isLoading && <Loader />} {/* Mostra il loader */}
             <div className='container mx-auto'>
                 <h1 className="text-5xl text-green-800 py-5 text-center">Food List</h1>
                 <p className="text-gray-700 mb-5 text-center">

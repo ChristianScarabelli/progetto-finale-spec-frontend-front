@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import GlobalContext from '../contexts/GlobalContext.jsx';
+import Loader from "../components/Loader.jsx";
 
 export default function FoodDetail() {
     // Ottengo l'id dal URL
     const { id } = useParams();
 
-    const { foodDetail, fetchFoodDetail } = useContext(GlobalContext);
+    const { foodDetail, fetchFoodDetail, isLoading } = useContext(GlobalContext);
 
     // Rifaccio il fetch per id ad ogni cambio id
     useEffect(() => {
@@ -14,9 +15,8 @@ export default function FoodDetail() {
         window.scrollTo(0, 0)
     }, [id])
 
-
-    if (foodDetail === null) {
-        return null
+    if (isLoading) {
+        return <Loader />
     }
     console.log(foodDetail)
 
