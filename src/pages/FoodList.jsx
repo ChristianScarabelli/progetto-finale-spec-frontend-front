@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useMemo, useState, useRef } from 'r
 import GlobalContext from '../contexts/GlobalContext.jsx'
 import FoodRow from '../components/FoodRow.jsx'
 import Loader from '../components/Loader.jsx'
-
+import NavBar from '../components/NavBar.jsx'
 
 // Freccine ordinamento
 const chevronUp = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -39,11 +39,30 @@ export default function FoodList() {
     const [tooltipTimeout, setTooltipTimeout] = useState(null);
     // Stato per il ref della ricerca per autofocus
     const inputRef = useRef(null)
+    // Stato per i preferiti
+    const [favorites, setFavorites] = useState([])
 
     useEffect(() => {
         fetchFood()
         inputRef.current?.focus()
     }, [])
+
+    // Recupera i preferiti dal localStorage al primo render
+    useEffect(() => {
+        const storedFavorites = localStorage.getItem("favorites");
+        if (storedFavorites) {
+            try {
+                setFavorites(JSON.parse(storedFavorites));
+            } catch (err) {
+                console.error("Errore nel parsing dei preferiti dal localStorage:", err);
+            }
+        }
+    }, []);
+
+    // Salva i preferiti nel localStorage ogni volta che cambiano
+    useEffect(() => {
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    }, [favorites]);
 
     // Funzione per gestire l'ordine
     const handleSort = (field) => {
@@ -113,124 +132,145 @@ export default function FoodList() {
         setTooltip({ visible: false, content: '', position: { x: 0, y: 0 } });
     };
 
+    // Funzione per aggiungere/rimuovere un cibo dai preferiti
+    const handleToggleFavorite = (foodItem) => {
+        setFavorites((prevFavorites) => {
+            const isFavorite = prevFavorites.some((fav) => fav.id === foodItem.id);
+            if (isFavorite) {
+                // Rimuovi dai preferiti
+                return prevFavorites.filter((fav) => fav.id !== foodItem.id);
+            } else {
+                // Aggiungi ai preferiti
+                return [...prevFavorites, foodItem];
+            }
+        });
+    };
+
     return (
-        <section className="pt-[82px] p-5 bg-green-200">
-            {isLoading && <Loader />} {/* Mostra il loader */}
-            <div className='container mx-auto'>
-                <h1 className="text-5xl text-green-800 py-5 text-center">Food List</h1>
-                <p className="text-gray-700 mb-5 text-center">
-                    Here's the complete list of Vegan food! Search your favourite, sort them and add them to your wish list!
-                </p>
-                <div className="flex justify-center gap-1 my-5">
-                    <img
-                        src="https://images.unsplash.com/photo-1580910365203-91ea9115a319?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BpbmFjaXxlbnwwfHwwfHx8MA%3D%3D"
-                        alt="Placeholder 1"
-                        className="w-1/12  object-cover rounded-md"
-                    />
-                    <img
-                        src="https://images.unsplash.com/photo-1656918828529-345b77bb06e9?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFycm98ZW58MHx8MHx8fDA%3D"
-                        alt="Placeholder 2"
-                        className="w-1/12  object-cover rounded-md"
-                    />
-                    <img
-                        src="https://plus.unsplash.com/premium_photo-1674347954785-7604a0220776?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2VtaSUyMGRpJTIwenVjY2F8ZW58MHx8MHx8fDA%3D"
-                        alt="Placeholder 3"
-                        className="w-1/12  object-cover rounded-md"
-                    />
-                    <img
-                        src="https://plus.unsplash.com/premium_photo-1664648005366-8737ef6043d5?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dG9mdXxlbnwwfHwwfHx8MA%3D%3D"
-                        alt="Placeholder 4"
-                        className="w-1/12  object-cover rounded-md"
-                    />
-                    <img
-                        src="https://images.unsplash.com/photo-1730591857303-0fa44be3f677?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVudGljY2hpZSUyMHJvc3NlfGVufDB8fDB8fHww"
-                        alt="Placeholder 5"
-                        className="w-1/12  object-cover rounded-md"
-                    />
+        <>
+            <NavBar favorites={favorites} /> {/* Passa favorites come prop */}
+            <section className="pt-[82px] p-5 bg-green-200">
+                {isLoading && <Loader />} {/* Mostra il loader */}
+                <div className='container mx-auto'>
+                    <h1 className="text-5xl text-green-800 py-5 text-center">Food List</h1>
+                    <p className="text-gray-700 mb-5 text-center">
+                        Here's the complete list of Vegan food! Search your favourite, sort them and add them to your wish list!
+                    </p>
+                    <div className="flex justify-center gap-1 my-5">
+                        <img
+                            src="https://images.unsplash.com/photo-1580910365203-91ea9115a319?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BpbmFjaXxlbnwwfHwwfHx8MA%3D%3D"
+                            alt="Placeholder 1"
+                            className="w-1/12  object-cover rounded-md"
+                        />
+                        <img
+                            src="https://images.unsplash.com/photo-1656918828529-345b77bb06e9?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFycm98ZW58MHx8MHx8fDA%3D"
+                            alt="Placeholder 2"
+                            className="w-1/12  object-cover rounded-md"
+                        />
+                        <img
+                            src="https://plus.unsplash.com/premium_photo-1674347954785-7604a0220776?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2VtaSUyMGRpJTIwenVjY2F8ZW58MHx8MHx8fDA%3D"
+                            alt="Placeholder 3"
+                            className="w-1/12  object-cover rounded-md"
+                        />
+                        <img
+                            src="https://plus.unsplash.com/premium_photo-1664648005366-8737ef6043d5?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dG9mdXxlbnwwfHwwfHx8MA%3D%3D"
+                            alt="Placeholder 4"
+                            className="w-1/12  object-cover rounded-md"
+                        />
+                        <img
+                            src="https://images.unsplash.com/photo-1730591857303-0fa44be3f677?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVudGljY2hpZSUyMHJvc3NlfGVufDB8fDB8fHww"
+                            alt="Placeholder 5"
+                            className="w-1/12  object-cover rounded-md"
+                        />
+                    </div>
+                    <div className="my-5 pt-10 p-5 text-center">
+                        <input
+                            type="text"
+                            ref={inputRef}
+                            className="text-gray-800 bg-gray-50 rounded-xl px-5 py-3 w-2/3"
+                            placeholder="Search food for name..."
+                            onChange={(e) => handleDebouncedSearch(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div className="my-5 pt-10 p-5 text-center">
-                    <input
-                        type="text"
-                        ref={inputRef}
-                        className="text-gray-800 bg-gray-50 rounded-xl px-5 py-3 w-2/3"
-                        placeholder="Search food for name..."
-                        onChange={(e) => handleDebouncedSearch(e.target.value)}
-                    />
-                </div>
-            </div>
-            <section className="container mx-auto">
-                {/* Select per il filtro */}
-                <div className="flex justify-end max-w-4xl mx-auto pb-5">
-                    <select
-                        className="text-gray-700 text-xs bg-gray-50 rounded-lg px-3 py-2"
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                    >
-                        <option value="">Filter by Category...</option>
-                        {uniqueCategories.map((category) => (
-                            <option key={category} value={category}>
-                                {category}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                {/* Tabella */}
-                <div className="overflow-x-auto mt-10">
-                    <table className="bg-gray-50 max-w-4xl mx-auto w-full shadow-md rounded-lg overflow-hidden text-gray-700 mb-10">
-                        <thead className="bg-green-800 text-gray-50">
-                            <tr>
-                                <th
-                                    onClick={() => handleSort('title')}
-                                    onMouseEnter={(e) => showTooltip('Click to sort by Title', e)}
-                                    onMouseLeave={hideTooltip}
-                                    className="py-2 px-4 text-left text-xl cursor-pointer hover:bg-cyan-600"
-                                >
-                                    <div className="flex justify-between items-center">
-                                        Title
-                                        {sortBy === 'title' && (sortOrder === 1 ? chevronDown : chevronUp)}
-                                    </div>
-                                </th>
-                                <th
-                                    onClick={() => handleSort('category')}
-                                    onMouseEnter={(e) => showTooltip('Click to sort by Category', e)}
-                                    onMouseLeave={hideTooltip}
-                                    className="py-2 px-4 text-left text-xl cursor-pointer hover:bg-cyan-600"
-                                >
-                                    <div className="flex justify-between items-center">
-                                        Category
-                                        {sortBy === 'category' && (sortOrder === 1 ? chevronDown : chevronUp)}
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredFood.map((food) => {
-                                return (
-                                    <FoodRow
-                                        key={food.id}
-                                        data={food}
-                                        checked={false} // gestire la selezione
-                                        onToggle={() => { }}
-                                    />
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                    {/* Tooltip */}
-                    {tooltip.visible && (
-                        <div
-                            className="absolute bg-gray-700 text-gray-50 text-xs rounded-lg px-3 py-2 shadow-lg"
-                            style={{
-                                top: tooltip.position.y + 10, // Tooltip leggermente sotto il mouse
-                                left: tooltip.position.x + 10,
-                                zIndex: 1000,
-                            }}
+                <section className="container mx-auto">
+                    {/* Select per il filtro */}
+                    <div className="flex justify-end max-w-4xl mx-auto pb-5">
+                        <select
+                            className="text-gray-700 text-xs bg-gray-50 rounded-lg px-3 py-2"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
                         >
-                            {tooltip.content}
-                        </div>
-                    )}
-                </div>
+                            <option value="">Filter by Category...</option>
+                            {uniqueCategories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    {/* Tabella */}
+                    <div className="overflow-x-auto mt-10">
+                        <table className="bg-gray-50 max-w-4xl mx-auto w-full shadow-md rounded-lg overflow-hidden text-gray-700 mb-10">
+                            <thead className="bg-green-800 text-gray-50">
+                                <tr>
+                                    <th
+                                        onClick={() => handleSort('title')}
+                                        onMouseEnter={(e) => showTooltip('Click to sort by Title', e)}
+                                        onMouseLeave={hideTooltip}
+                                        className="py-2 px-4 text-left text-xl cursor-pointer hover:bg-cyan-600"
+                                    >
+                                        <div className="flex justify-between items-center">
+                                            Title
+                                            {sortBy === 'title' && (sortOrder === 1 ? chevronDown : chevronUp)}
+                                        </div>
+                                    </th>
+                                    <th
+                                        onClick={() => handleSort('category')}
+                                        onMouseEnter={(e) => showTooltip('Click to sort by Category', e)}
+                                        onMouseLeave={hideTooltip}
+                                        className="py-2 px-4 text-left text-xl cursor-pointer hover:bg-cyan-600"
+                                    >
+                                        <div className="flex justify-between items-center">
+                                            Category
+                                            {sortBy === 'category' && (sortOrder === 1 ? chevronDown : chevronUp)}
+                                        </div>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredFood.map((food) => {
+                                    const isFavorite = favorites.some((fav) => fav.id === food.id);
+                                    return (
+                                        <FoodRow
+                                            key={food.id}
+                                            data={food}
+                                            isFavorite={isFavorite} // Passa lo stato di preferito
+                                            onClick={() => handleToggleFavorite(food)} // Alterna preferito
+                                            checked={false} // gestire la selezione
+                                            onToggle={() => { }}
+                                        />
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                        {/* Tooltip */}
+                        {tooltip.visible && (
+                            <div
+                                className="absolute bg-gray-700 text-gray-50 text-xs rounded-lg px-3 py-2 shadow-lg"
+                                style={{
+                                    top: tooltip.position.y + 10, // Tooltip leggermente sotto il mouse
+                                    left: tooltip.position.x + 10,
+                                    zIndex: 1000,
+                                }}
+                            >
+                                {tooltip.content}
+                            </div>
+                        )}
+                    </div>
+                </section>
             </section>
-        </section>
+        </>
     )
 }

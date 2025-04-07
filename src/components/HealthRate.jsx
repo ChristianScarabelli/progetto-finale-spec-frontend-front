@@ -6,9 +6,9 @@ function HealthRate({ rate = 0 }) {
     const icons = Array.from({ length: 5 }, (_, i) => (i < rate ? broccoliFull : broccoliEmpty));
 
     return (
-        <div className="opacity-60">
+        <div className="flex gap-1 opacity-50">
             {icons.map((icon, index) => (
-                <img key={index} src={icon} alt="health icon" />
+                <img className="h-6 w-6" key={index} src={icon} alt="health icon" />
             ))}
         </div>
     );
