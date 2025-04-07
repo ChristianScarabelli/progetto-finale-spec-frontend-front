@@ -24,7 +24,7 @@ function debounce(callback, delay) {
 }
 
 export default function FoodList() {
-    const { food, fetchFood, isLoading } = useContext(GlobalContext);
+    const { food, fetchFood, isLoading, favorites, toggleFavorite } = useContext(GlobalContext); // Aggiunto toggleFavorite
 
     // Stato per criterio/colonna di ordinamento
     const [sortBy, setSortBy] = useState('');
@@ -39,30 +39,11 @@ export default function FoodList() {
     const [tooltipTimeout, setTooltipTimeout] = useState(null);
     // Stato per il ref della ricerca per autofocus
     const inputRef = useRef(null)
-    // Stato per i preferiti
-    const [favorites, setFavorites] = useState([])
 
     useEffect(() => {
         fetchFood()
         inputRef.current?.focus()
     }, [])
-
-    // Recupera i preferiti dal localStorage al primo render
-    useEffect(() => {
-        const storedFavorites = localStorage.getItem("favorites");
-        if (storedFavorites) {
-            try {
-                setFavorites(JSON.parse(storedFavorites));
-            } catch (err) {
-                console.error("Errore nel parsing dei preferiti dal localStorage:", err);
-            }
-        }
-    }, []);
-
-    // Salva i preferiti nel localStorage ogni volta che cambiano
-    useEffect(() => {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-    }, [favorites]);
 
     // Funzione per gestire l'ordine
     const handleSort = (field) => {
@@ -130,20 +111,6 @@ export default function FoodList() {
     const hideTooltip = () => {
         clearTimeout(tooltipTimeout); // Cancello il timeout se l'utente lascia prima
         setTooltip({ visible: false, content: '', position: { x: 0, y: 0 } });
-    };
-
-    // Funzione per aggiungere/rimuovere un cibo dai preferiti
-    const handleToggleFavorite = (foodItem) => {
-        setFavorites((prevFavorites) => {
-            const isFavorite = prevFavorites.some((fav) => fav.id === foodItem.id);
-            if (isFavorite) {
-                // Rimuovi dai preferiti
-                return prevFavorites.filter((fav) => fav.id !== foodItem.id);
-            } else {
-                // Aggiungi ai preferiti
-                return [...prevFavorites, foodItem];
-            }
-        });
     };
 
     return (
@@ -247,7 +214,7 @@ export default function FoodList() {
                                             key={food.id}
                                             data={food}
                                             isFavorite={isFavorite} // Passa lo stato di preferito
-                                            onClick={() => handleToggleFavorite(food)} // Alterna preferito
+                                            onClick={() => toggleFavorite(food)} // Usa toggleFavorite dal context
                                             checked={false} // gestire la selezione
                                             onToggle={() => { }}
                                         />

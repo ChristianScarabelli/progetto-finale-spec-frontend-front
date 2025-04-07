@@ -11,6 +11,34 @@ export default function useFood() {
     // Stato per il caricamento
     const [isLoading, setIsLoading] = useState(false);
 
+    // Stato per i preferiti
+    const [favorites, setFavorites] = useState(() => {
+        const storedFavorites = localStorage.getItem("favorites");
+        return storedFavorites ? JSON.parse(storedFavorites) : [];
+    });
+
+    // Funzione per aggiungere/rimuovere un cibo dai preferiti
+    const toggleFavorite = (foodItem) => {
+        setFavorites((prevFavorites) => {
+            const isFavorite = prevFavorites.some((fav) => fav.id === foodItem.id);
+            const updatedFavorites = isFavorite
+                ? prevFavorites.filter((fav) => fav.id !== foodItem.id) // Rimuovi dai preferiti
+                : [...prevFavorites, foodItem]; // Aggiungi ai preferiti
+
+            localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Aggiorna localStorage
+            return updatedFavorites;
+        });
+    };
+
+    // Funzione per rimuovere un cibo dai preferiti
+    const removeFavorite = (foodItem) => {
+        setFavorites((prevFavorites) => {
+            const updatedFavorites = prevFavorites.filter((fav) => fav.id !== foodItem.id);
+            localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Aggiorna localStorage
+            return updatedFavorites;
+        });
+    };
+
     // Funzione di fetch delle tasks
     const fetchFood = async () => {
         setIsLoading(true)
@@ -40,5 +68,5 @@ export default function useFood() {
         }
     }
 
-    return { food, fetchFood, fetchFoodDetail, foodDetail, isLoading }
+    return { food, fetchFood, fetchFoodDetail, foodDetail, isLoading, favorites, toggleFavorite, removeFavorite }
 }
