@@ -4,9 +4,6 @@ function FoodRow({ data, checked, onToggle }) {
 
     const { title, category, id } = data
 
-    console.log("Dati ricevuti in FoodRow:", data); // Debug
-
-
     return (
         <tr className="not-last:border-b border-green-600 hover:bg-green-100">
             <td className="py-2 px-4 hover:underline hover:text-blue-400">

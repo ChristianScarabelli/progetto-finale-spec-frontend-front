@@ -1,56 +1,51 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { useParams } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import GlobalContext from '../contexts/GlobalContext.jsx';
 
 export default function FoodDetail() {
-    const { id } = useParams(); // Ottieni l'id dalla URL
-    const navigate = useNavigate();
+    // Ottengo l'id dal URL
+    const { id } = useParams();
 
-    const [food, setFood] = useState(null); // Stato per il cibo
+    const { foodDetail, fetchFoodDetail } = useContext(GlobalContext);
 
-    // Effettua il fetch del cibo specifico
+    // Rifaccio il fetch per id ad ogni cambio id
     useEffect(() => {
-        const fetchFoodDetail = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/foods/${id}`);
-                setFood(response.data); // Salva i dati del cibo
-            } catch (err) {
-                console.error(err);
-            }
-        };
+        fetchFoodDetail(id)
+        window.scrollTo(0, 0)
+    }, [id])
 
-        fetchFoodDetail();
-    }, [id]);
 
-    // Mostra i dettagli del cibo
+    if (foodDetail === null) {
+        return null
+    }
+    console.log(foodDetail)
+
     return (
-        <section className="mx-auto p-4 pt-[82px] pb-10 bg-green-200" >
-            {food ? (
+        <section className="mx-auto p-4 pt-[82px] pb-10 bg-green-200">
+            {foodDetail ? (
                 <div className="flex flex-col gap-3 text-gray-800 bg-gray-50 shadow-lg p-5 rounded-lg mt-10">
-                    <h2>
-                        <strong>Name:</strong> {food.title}
+                    <h2 className="">
+                        <strong>Name:</strong> {foodDetail.title}
                     </h2>
                     <p>
-                        <strong>Description:</strong> {food.description}
+                        <strong>Description:</strong> {foodDetail.description}
                     </p>
                     <span>
-                        <strong>Category:</strong> {food.category}
+                        <strong>Category:</strong> {foodDetail.category}
                     </span>
                     <figure>
                         <img
-                            src={food.image}
-                            alt={food.title}
+                            src={foodDetail.image}
+                            alt={foodDetail.title}
                             className="rounded-lg"
                         />
                     </figure>
                     <span>
-                        <strong>Health Rate:</strong> {food.healthRate}
+                        <strong>Health Rate:</strong> {foodDetail.healthRate}
                     </span>
                 </div>
             ) : (
-                <div className="flex flex-col gap-3 text-gray-800 bg-gray-200 shadow-lg p-5 mt-[92px] rounded-lg">
+                <div className="flex flex-col gap-3 text-gray-800 bg-gray-50 shadow-lg p-5 mt-[92px] rounded-lg">
                     <h2>Food not found</h2>
                 </div>
             )}

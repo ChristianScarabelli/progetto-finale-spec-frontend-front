@@ -47,12 +47,12 @@ export default function FoodList() {
     // Funzione per gestire l'ordine
     const handleSort = (field) => {
         if (sortBy === field) {
-            setSortOrder(sortOrder * -1);
+            setSortOrder(sortOrder * -1)
         } else {
-            setSortBy(field);
-            setSortOrder(1);
+            setSortBy(field)
+            setSortOrder(1)
         }
-    };
+    }
 
     // Funzione per ottenere categorie uniche
     const uniqueCategories = useMemo(() => {
@@ -64,17 +64,17 @@ export default function FoodList() {
     const filteredFood = useMemo(() => {
         if (!food) return []
 
-        // Filtra per categoria selezionata
+        // Filtro per categoria selezionata
         const filteredByCategory = selectedCategory
             ? food.filter((f) => f.category === selectedCategory)
             : food
 
-        // Filtra per query di ricerca
+        // Filtro per query di ricerca
         const filteredBySearch = filteredByCategory.filter((f) =>
             f.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-        // Ordinare Food
+        // Ordino Food
         const sortedFood = [...filteredBySearch]
         sortedFood.sort((a, b) => {
             if (sortBy === 'title') {
@@ -84,8 +84,6 @@ export default function FoodList() {
             }
             return 0
         })
-        console.log("Dati filtrati e ordinati:", sortedFood); // Debug
-
         return sortedFood
     }, [food, selectedCategory, searchQuery, sortBy, sortOrder])
 
@@ -121,6 +119,33 @@ export default function FoodList() {
                 <p className="text-gray-700 mb-5 text-center">
                     Here's the complete list of Vegan food! Search your favourite, sort them and add them to your wish list!
                 </p>
+                <div className="flex justify-center gap-1 my-5">
+                    <img
+                        src="https://images.unsplash.com/photo-1580910365203-91ea9115a319?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BpbmFjaXxlbnwwfHwwfHx8MA%3D%3D"
+                        alt="Placeholder 1"
+                        className="w-1/12  object-cover rounded-md"
+                    />
+                    <img
+                        src="https://images.unsplash.com/photo-1656918828529-345b77bb06e9?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFycm98ZW58MHx8MHx8fDA%3D"
+                        alt="Placeholder 2"
+                        className="w-1/12  object-cover rounded-md"
+                    />
+                    <img
+                        src="https://plus.unsplash.com/premium_photo-1674347954785-7604a0220776?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2VtaSUyMGRpJTIwenVjY2F8ZW58MHx8MHx8fDA%3D"
+                        alt="Placeholder 3"
+                        className="w-1/12  object-cover rounded-md"
+                    />
+                    <img
+                        src="https://plus.unsplash.com/premium_photo-1664648005366-8737ef6043d5?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dG9mdXxlbnwwfHwwfHx8MA%3D%3D"
+                        alt="Placeholder 4"
+                        className="w-1/12  object-cover rounded-md"
+                    />
+                    <img
+                        src="https://images.unsplash.com/photo-1730591857303-0fa44be3f677?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVudGljY2hpZSUyMHJvc3NlfGVufDB8fDB8fHww"
+                        alt="Placeholder 5"
+                        className="w-1/12  object-cover rounded-md"
+                    />
+                </div>
                 <div className="my-5 pt-10 p-5 text-center">
                     <input
                         type="text"
@@ -178,7 +203,6 @@ export default function FoodList() {
                         </thead>
                         <tbody>
                             {filteredFood.map((food) => {
-                                console.log(food); // Debug: verifica che ogni oggetto abbia un campo `id`
                                 return (
                                     <FoodRow
                                         key={food.id}
