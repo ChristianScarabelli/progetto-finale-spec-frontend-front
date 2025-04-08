@@ -5,9 +5,9 @@ import Loader from "../components/Loader.jsx";
 
 export default function FoodDetail() {
     // Ottengo l'id dal URL
-    const { id } = useParams();
+    const { id } = useParams()
 
-    const { foodDetail, fetchFoodDetail, isLoading, favorites, toggleFavorite } = useContext(GlobalContext);
+    const { foodDetail, fetchFoodDetail, isLoading, favorites, toggleFavorite } = useContext(GlobalContext)
 
     // Rifaccio il fetch per id ad ogni cambio id
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function FoodDetail() {
         return <Loader />;
     }
 
-    const isFavorite = foodDetail && favorites.some((fav) => fav.id === foodDetail.id); // Semplificato
+    const isFavorite = foodDetail && favorites.some((fav) => fav.id === foodDetail.id)
 
     return (
         <section className="mx-auto p-4 pt-[82px] pb-10 bg-green-200 z-0">

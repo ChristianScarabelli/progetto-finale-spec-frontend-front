@@ -135,7 +135,7 @@ export default function FoodList() {
                 {selectedFoods.length > 0 && (
                     <button
                         className="fixed bottom-5 right-5 bg-green-600 text-gray-50 cursor-pointer px-4 py-2 rounded-full shadow-lg hover:bg-green-700"
-                        onClick={() => setShowCompareSidebar(true)} // Mostra la sidebar
+                        onClick={() => setShowCompareSidebar(true)}
                     >
                         Compare
                     </button>
@@ -176,7 +176,7 @@ export default function FoodList() {
                         <img
                             src="https://images.unsplash.com/photo-1730591857303-0fa44be3f677?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVudGljY2hpZSUyMHJvc3NlfGVufDB8fDB8fHww"
                             alt="Placeholder 5"
-                            className="w-1/12  object-cover rounded-md"
+                            className="w-1/12 aspect-square object-cover rounded-md"
                         />
                     </div>
                     <div className="my-5 pt-10 p-5 text-center">
@@ -243,9 +243,9 @@ export default function FoodList() {
                                         <FoodRow
                                             key={food.id}
                                             data={food}
-                                            isFavorite={isFavorite} // Passa lo stato di preferito
-                                            onClick={() => toggleFavorite(food)} // Usa toggleFavorite dal context
-                                            checked={false} // gestire la selezione
+                                            isFavorite={isFavorite}
+                                            onClick={() => toggleFavorite(food)}
+                                            checked={false}
                                             onToggle={() => { }}
                                         />
                                     );
