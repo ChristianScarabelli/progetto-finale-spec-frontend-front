@@ -53,8 +53,9 @@ export default function FoodList() {
     const [showCompareSidebar, setShowCompareSidebar] = useState(false);
 
     useEffect(() => {
-        fetchFood()
-        inputRef.current?.focus()
+        fetchFood();
+        window.scrollTo(0, 0); // Scroll all'inzio al montaggio del componente
+        inputRef.current?.focus();
     }, [])
 
     // Funzione per gestire l'ordine

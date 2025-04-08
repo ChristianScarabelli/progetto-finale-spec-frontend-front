@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function HomePage() {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll all'inzio al montaggio del componente
+    }, []);
+
     return (
         <section className="pt-[82px]">
             <div className="bg-gray-50 p-8">
