@@ -156,22 +156,22 @@ export default function FoodList() {
                         <img
                             src="https://images.unsplash.com/photo-1580910365203-91ea9115a319?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BpbmFjaXxlbnwwfHwwfHx8MA%3D%3D"
                             alt="Placeholder 1"
-                            className="w-1/12  object-cover rounded-md"
+                            className="w-1/12 aspect-square object-cover rounded-md"
                         />
                         <img
                             src="https://images.unsplash.com/photo-1656918828529-345b77bb06e9?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFycm98ZW58MHx8MHx8fDA%3D"
                             alt="Placeholder 2"
-                            className="w-1/12  object-cover rounded-md"
+                            className="w-1/12 aspect-square object-cover rounded-md"
                         />
                         <img
                             src="https://plus.unsplash.com/premium_photo-1674347954785-7604a0220776?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2VtaSUyMGRpJTIwenVjY2F8ZW58MHx8MHx8fDA%3D"
                             alt="Placeholder 3"
-                            className="w-1/12  object-cover rounded-md"
+                            className="w-1/12 aspect-square object-cover rounded-md"
                         />
                         <img
                             src="https://plus.unsplash.com/premium_photo-1664648005366-8737ef6043d5?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dG9mdXxlbnwwfHwwfHx8MA%3D%3D"
                             alt="Placeholder 4"
-                            className="w-1/12  object-cover rounded-md"
+                            className="w-1/12 aspect-square object-cover rounded-md"
                         />
                         <img
                             src="https://images.unsplash.com/photo-1730591857303-0fa44be3f677?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVudGljY2hpZSUyMHJvc3NlfGVufDB8fDB8fHww"
