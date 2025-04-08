@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -10,6 +10,12 @@ export default function useFood() {
     const [foodDetail, setFoodDetail] = useState(null);
     // Stato per il caricamento
     const [isLoading, setIsLoading] = useState(false);
+
+    // Stato per i cibi selezionati per il comparatore
+    const [selectedFoodIds, setSelectedFoodIds] = useState(() => {
+        const storedSelected = localStorage.getItem("selectedFoods");
+        return storedSelected ? JSON.parse(storedSelected) : [];
+    })
 
     // Stato per i preferiti
     const [favorites, setFavorites] = useState(() => {
@@ -38,6 +44,23 @@ export default function useFood() {
             return updatedFavorites;
         });
     };
+
+    // Funzione per selezionare/deselezionare un cibo
+    const toggleSelection = (foodId) => {
+        setSelectedFoodIds((prev) => {
+            const updatedSelection = prev.includes(foodId)
+                ? prev.filter((id) => id !== foodId) // Rimuovi dalla selezione
+                : [...prev, foodId]; // Aggiungi alla selezione
+
+            localStorage.setItem("selectedFoods", JSON.stringify(updatedSelection)); // Salva nel localStorage
+            return updatedSelection;
+        });
+    }
+
+    // Funzione per ottenere i cibi selezionati
+    const selectedFoods = useMemo(() => {
+        return food.filter((f) => selectedFoodIds.includes(f.id));
+    }, [food, selectedFoodIds]);
 
     // Funzione di fetch delle tasks
     const fetchFood = async () => {
@@ -68,5 +91,17 @@ export default function useFood() {
         }
     }
 
-    return { food, fetchFood, fetchFoodDetail, foodDetail, isLoading, favorites, toggleFavorite, removeFavorite }
+    return {
+        food,
+        fetchFood,
+        fetchFoodDetail,
+        foodDetail,
+        isLoading,
+        favorites,
+        toggleFavorite,
+        removeFavorite,
+        selectedFoodIds,
+        toggleSelection,
+        selectedFoods,
+    }
 }

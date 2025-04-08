@@ -3,6 +3,8 @@ import GlobalContext from '../contexts/GlobalContext.jsx'
 import FoodRow from '../components/FoodRow.jsx'
 import Loader from '../components/Loader.jsx'
 import NavBar from '../components/NavBar.jsx'
+import CompareSidebar from '../components/CompareSidebar';
+
 
 // Freccine ordinamento
 const chevronUp = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -24,7 +26,15 @@ function debounce(callback, delay) {
 }
 
 export default function FoodList() {
-    const { food, fetchFood, isLoading, favorites, toggleFavorite } = useContext(GlobalContext); // Aggiunto toggleFavorite
+    const {
+        food,
+        fetchFood,
+        isLoading,
+        favorites,
+        toggleFavorite,
+        selectedFoods,
+        toggleSelection
+    } = useContext(GlobalContext)
 
     // Stato per criterio/colonna di ordinamento
     const [sortBy, setSortBy] = useState('');
@@ -39,6 +49,8 @@ export default function FoodList() {
     const [tooltipTimeout, setTooltipTimeout] = useState(null);
     // Stato per il ref della ricerca per autofocus
     const inputRef = useRef(null)
+    // Stato per la sidebar di comparazione
+    const [showCompareSidebar, setShowCompareSidebar] = useState(false);
 
     useEffect(() => {
         fetchFood()
@@ -117,7 +129,24 @@ export default function FoodList() {
         <>
             <NavBar favorites={favorites} /> {/* Passa favorites come prop */}
             <section className="pt-[82px] p-5 bg-green-200">
-                {isLoading && <Loader />} {/* Mostra il loader */}
+                {/* Mostra il loader */}
+                {isLoading && <Loader />}
+                {/* Bottone Compare */}
+                {selectedFoods.length > 0 && (
+                    <button
+                        className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-700"
+                        onClick={() => setShowCompareSidebar(true)} // Mostra la sidebar
+                    >
+                        Compare
+                    </button>
+                )}
+                {/* Sidebar per il confronto */}
+                <CompareSidebar
+                    isOpen={showCompareSidebar}
+                    onClose={() => setShowCompareSidebar(false)}
+                    selectedFoods={selectedFoods}
+                    toggleSelection={toggleSelection}
+                />
                 <div className='container mx-auto'>
                     <h1 className="text-5xl text-green-800 py-5 text-center">Food List</h1>
                     <p className="text-gray-700 mb-5 text-center">

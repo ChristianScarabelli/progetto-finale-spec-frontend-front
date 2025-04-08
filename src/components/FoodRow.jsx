@@ -3,16 +3,23 @@ import { Link } from "react-router-dom";
 import GlobalContext from "../contexts/GlobalContext.jsx";
 
 function FoodRow({ data, checked, onToggle }) {
-    const { favorites, toggleFavorite } = useContext(GlobalContext); // Ottieni preferiti e funzione toggle
+    const { favorites, toggleFavorite, selectedFoodIds, toggleSelection } = useContext(GlobalContext)
     const { title, category, id } = data;
 
-    const isFavorite = favorites.some((fav) => fav.id === id);
+    // Variabile per il Food favorito
+    const isFavorite = favorites.some((fav) => fav.id === id)
+    // Variabile per il Food selezionato per id
+    const isSelected = selectedFoodIds.includes(id)
+
 
     return (
         <tr className="not-last:border-b border-green-600 hover:bg-green-100">
             <td className="py-2 px-4 hover:underline hover:text-blue-400">
                 <div className="flex gap-5 items-center">
-                    <input type="checkbox" checked={checked} onChange={() => onToggle(id)} />
+                    <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelection(id)} />
                     <Link to={`/foods/${id}`}>{title}</Link>
                 </div>
             </td>
