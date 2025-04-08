@@ -134,7 +134,7 @@ export default function FoodList() {
                 {/* Bottone Compare */}
                 {selectedFoods.length > 0 && (
                     <button
-                        className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-700"
+                        className="fixed bottom-5 right-5 bg-green-600 text-gray-50 cursor-pointer px-4 py-2 rounded-full shadow-lg hover:bg-green-700"
                         onClick={() => setShowCompareSidebar(true)} // Mostra la sidebar
                     >
                         Compare
@@ -210,6 +210,7 @@ export default function FoodList() {
                         <table className="bg-gray-50 max-w-4xl mx-auto w-full shadow-md rounded-lg overflow-hidden text-gray-700 mb-10">
                             <thead className="bg-green-800 text-gray-50">
                                 <tr>
+                                    <th className="py-2 px-4 text-left text-xs w-15">Check to Compare</th>
                                     <th
                                         onClick={() => handleSort('title')}
                                         onMouseEnter={(e) => showTooltip('Click to sort by Title', e)}
@@ -232,7 +233,7 @@ export default function FoodList() {
                                             {sortBy === 'category' && (sortOrder === 1 ? chevronDown : chevronUp)}
                                         </div>
                                     </th>
-                                    <th></th>
+                                    <th className="py-2 px-4 text-left text-xs w-15">Add to Favorites</th>
                                 </tr>
                             </thead>
                             <tbody>

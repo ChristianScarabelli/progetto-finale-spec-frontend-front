@@ -14,17 +14,23 @@ function FoodRow({ data, checked, onToggle }) {
 
     return (
         <tr className="not-last:border-b border-green-600 hover:bg-green-100">
-            <td className="py-2 px-4 hover:underline hover:text-blue-400">
-                <div className="flex gap-5 items-center">
-                    <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => toggleSelection(id)} />
-                    <Link to={`/foods/${id}`}>{title}</Link>
-                </div>
+            {/* Checkbox per la selezione */}
+            <td className="py-2 px-4 text-center">
+                <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={isSelected}
+                    onChange={() => toggleSelection(id)}
+                />
             </td>
+            {/* Titolo del cibo */}
+            <td className="py-2 px-4 hover:underline hover:text-blue-400">
+                <Link to={`/foods/${id}`}>{title}</Link>
+            </td>
+            {/* Categoria del cibo */}
             <td className="py-2 px-4 text-sm text-gray-500">{category}</td>
-            <td>
+            {/* Cuoricino per aggiungere ai preferiti */}
+            <td className="py-2 px-4 text-center">
                 <button
                     onClick={() => toggleFavorite(data)} // Alterna preferito
                     className="text-gray-600 hover:text-cyan-600 transition"

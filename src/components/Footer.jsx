@@ -28,21 +28,6 @@ export default function Footer() {
                 Food list
               </a>
             </li>
-            <li>
-              <a href="/login" className="hover:text-cyan-600 transition-colors duration-300">
-                Search
-              </a>
-            </li>
-            <li>
-              <a href="/login" className="hover:text-cyan-600 transition-colors duration-300">
-                Wish
-              </a>
-            </li>
-            <li>
-              <a href="/login" className="hover:text-cyan-600 transition-colors duration-300">
-                Compare
-              </a>
-            </li>
           </ul>
         </div>
 
