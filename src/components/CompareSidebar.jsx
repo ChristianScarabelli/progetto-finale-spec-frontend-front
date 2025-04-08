@@ -22,6 +22,7 @@ export default function CompareSidebar({ isOpen, onClose, selectedFoods, toggleS
                             key={food.id}
                             food={food}
                             onRemove={() => toggleSelection(food.id)}
+                            variant="compare" // Specifica il tipo di card
                         />
                     ))
                 ) : (

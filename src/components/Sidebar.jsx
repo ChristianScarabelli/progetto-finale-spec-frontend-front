@@ -26,6 +26,7 @@ export default function Sidebar({ isOpen, onClose }) {
                             key={food.id}
                             food={food}
                             onRemove={removeFavorite} // Usa la funzione di rimozione dal context
+                            variant="favorites" // Specifica il tipo di card
                         />
                     ))
                 ) : (
