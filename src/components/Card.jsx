@@ -15,7 +15,7 @@ function Card({ food, onRemove, variant = "default" }) {
     >
       <Link to={`/foods/${id}`}>
         <img
-          src={food.img || placeholder}
+          src={food.image || placeholder}
           alt={food.title}
           className="w-full h-48 object-cover rounded-lg mb-4"
         />

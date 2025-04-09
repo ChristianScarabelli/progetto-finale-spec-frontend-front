@@ -6,44 +6,44 @@ import HealthRate from "../components/HealthRate.jsx";
 
 export default function FoodDetail() {
     // Ottengo l'id dal URL
-    const { id } = useParams()
+    const { id } = useParams();
 
-    const { foodDetail, fetchFoodDetail, isLoading, favorites, toggleFavorite } = useContext(GlobalContext)
+    const { food, fetchAndMergeFood, isLoading, favorites, toggleFavorite } = useContext(GlobalContext);
 
-    // Rifaccio il fetch per id ad ogni cambio id
+    // Effettuo il fetch dei dati al montaggio del componente
     useEffect(() => {
-        fetchFoodDetail(id);
+        fetchAndMergeFood();
         window.scrollTo(0, 0);
-    }, [id]);
+    }, []);
+
+    // Trovo il cibo specifico dall'elenco
+    const selectedFood = food.find((item) => item.id === Number(id)); // Converto id in numero
 
     if (isLoading) {
         return <Loader />;
     }
 
-    console.log(foodDetail)
-
-
-    const isFavorite = foodDetail && favorites.some((fav) => fav.id === foodDetail.id)
+    const isFavorite = selectedFood && favorites.some((fav) => fav.id === selectedFood.id);
 
     return (
         <section className="flex justify-center mx-auto p-4 pt-[82px] pb-10 bg-green-200 z-0">
-            {foodDetail ? (
+            {selectedFood ? (
                 <div className="flex flex-col sm:flex-row w-2/3 gap-6 text-gray-800 bg-gray-50 shadow-lg p-5 rounded-lg mt-10">
                     <figure className="flex-shrink-0 sm:w-1/3 w-full">
                         <img
-                            src={foodDetail.image}
-                            alt={foodDetail.title}
+                            src={selectedFood.image}
+                            alt={selectedFood.title}
                             className="w-full h-auto rounded-lg object-contain"
                         />
                     </figure>
                     <div className="flex flex-col sm:w-2/3 w-full gap-4">
                         <div className="flex justify-between items-start">
                             <h2 className="text-xl font-bold">
-                                Name: <span className="font-normal text-gray-600">{foodDetail.title}</span>
+                                Name: <span className="font-normal text-gray-600">{selectedFood.title}</span>
                             </h2>
                             {/* Cuoricino Favoriti */}
                             <button
-                                onClick={() => toggleFavorite(foodDetail)}
+                                onClick={() => toggleFavorite(selectedFood)}
                                 className="text-gray-600 cursor-pointer hover:text-cyan-600 transition"
                             >
                                 {isFavorite ? (
@@ -69,13 +69,13 @@ export default function FoodDetail() {
                             </button>
                         </div>
                         <p className="text-sm text-gray-600">
-                            <strong className="text-gray-800">Description:</strong> {foodDetail.description}
+                            <strong className="text-gray-800">Description:</strong> {selectedFood.description}
                         </p>
                         <span className="text-sm text-gray-600">
-                            <strong className="text-gray-800">Category:</strong> {foodDetail.category}
+                            <strong className="text-gray-800">Category:</strong> {selectedFood.category}
                         </span>
                         <span className="flex flex-col gap-3 text-sm text-gray-600">
-                            <strong className="text-gray-800">Health Rate:</strong> <HealthRate rate={foodDetail.healthRate} />
+                            <strong className="text-gray-800">Health Rate:</strong> <HealthRate rate={selectedFood.healthRate} />
                         </span>
                     </div>
                 </div>

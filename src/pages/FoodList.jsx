@@ -28,7 +28,7 @@ function debounce(callback, delay) {
 export default function FoodList() {
     const {
         food,
-        fetchFood,
+        fetchAndMergeFood,
         isLoading,
         favorites,
         toggleFavorite,
@@ -53,7 +53,7 @@ export default function FoodList() {
     const [showCompareSidebar, setShowCompareSidebar] = useState(false);
 
     useEffect(() => {
-        fetchFood();
+        fetchAndMergeFood();
         window.scrollTo(0, 0); // Scroll all'inzio al montaggio del componente
         inputRef.current?.focus();
     }, [])
@@ -104,7 +104,7 @@ export default function FoodList() {
     // Funzione per la ricerca con debounce
     const handleDebouncedSearch = useCallback(debounce(setSearchQuery, 500), [])
 
-
+    console.log(selectedFoods)
 
     // Funzione per mostrare il tooltip
     const showTooltip = (content, event) => {

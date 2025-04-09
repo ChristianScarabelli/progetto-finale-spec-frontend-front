@@ -6,8 +6,6 @@ export default function useFood() {
 
     // Stato per la lista dei Food
     const [food, setFood] = useState([])
-    // Stato per i dettagli di un singolo Food
-    const [foodDetail, setFoodDetail] = useState(null);
     // Stato per il caricamento
     const [isLoading, setIsLoading] = useState(false);
 
@@ -62,39 +60,40 @@ export default function useFood() {
         return food.filter((f) => selectedFoodIds.includes(f.id));
     }, [food, selectedFoodIds]);
 
-    // Funzione di fetch di Food
-    const fetchFood = async () => {
-        setIsLoading(true)
-        try {
-            const responseFood = await axios.get(`${API_URL}/foods`)
-            setFood(responseFood.data)
-        }
-        catch (err) {
-            console.error("Errore nel fetch dei dati:", err)
-        }
-        finally {
-            setIsLoading(false)
-        }
-    }
-
-    // Funzione di fetch del Food specifico
-    const fetchFoodDetail = async (id) => {
+    // Funzione di fetch e merge di Food
+    const fetchAndMergeFood = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`${API_URL}/foods/${id}`);
-            setFoodDetail(response.data.food); // Salvo direttamente l'oggetto food
+            // Fetch della lista di cibi
+            const responseFood = await axios.get(`${API_URL}/foods`);
+            const foodList = responseFood.data;
+
+            // Fetch dei dettagli per ogni cibo in parallelo
+            const detailedFoods = await Promise.all(
+                foodList.map(async (foodItem) => {
+                    const responseDetail = await axios.get(`${API_URL}/foods/${foodItem.id}`);
+                    return { ...foodItem, ...responseDetail.data.food };
+                })
+            );
+
+            // Aggiorna lo stato con i dati uniti
+            setFood(detailedFoods);
+
+            // Filtra preferiti e cibi selezionati basandosi sul localStorage
+            const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const storedSelected = JSON.parse(localStorage.getItem("selectedFoods")) || [];
+            setFavorites(detailedFoods.filter((food) => storedFavorites.some((fav) => fav.id === food.id)));
+            setSelectedFoodIds(storedSelected.filter((id) => detailedFoods.some((food) => food.id === id)));
         } catch (err) {
-            console.error(`Errore nel fetch del Food con id: ${id}`, err);
+            console.error("Errore nel fetch e merge dei dati:", err);
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return {
         food,
-        fetchFood,
-        fetchFoodDetail,
-        foodDetail,
+        fetchAndMergeFood,
         isLoading,
         favorites,
         toggleFavorite,
