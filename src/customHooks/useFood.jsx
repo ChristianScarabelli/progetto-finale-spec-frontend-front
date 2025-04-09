@@ -79,15 +79,14 @@ export default function useFood() {
 
     // Funzione di fetch del Food specifico
     const fetchFoodDetail = async (id) => {
-        setIsLoading(true)
+        setIsLoading(true);
         try {
-            const response = await axios.get(`${API_URL}/foods/${id}`)
-            setFoodDetail(response.data)
+            const response = await axios.get(`${API_URL}/foods/${id}`);
+            setFoodDetail(response.data.food); // Salvo direttamente l'oggetto food
         } catch (err) {
-            console.error(`Errore nel fetch del Food con id: ${id}`, err)
-        }
-        finally {
-            setIsLoading(false)
+            console.error(`Errore nel fetch del Food con id: ${id}`, err);
+        } finally {
+            setIsLoading(false);
         }
     }
 

@@ -8,7 +8,7 @@ function HealthRate({ rate = 0 }) {
     return (
         <div className="flex gap-1 opacity-50">
             {icons.map((icon, index) => (
-                <img className="h-6 w-6" key={index} src={icon} alt="health icon" />
+                <img className="h-7 w-7" key={index} src={icon} alt="health icon" />
             ))}
         </div>
     );
