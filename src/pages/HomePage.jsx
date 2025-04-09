@@ -37,7 +37,7 @@ export default function HomePage() {
                     </Link>
                 </div>
             </div>
-            <div className="flex items-center justify-between gap-5 pb-5 p-5 bg-green-200">
+            <div className="flex flex-col sm:flex-col md:flex-row items-center justify-between gap-5 pb-5 p-5 bg-green-200">
                 <div className="flex-1 p-3">
                     <h2 className="text-2xl font-bold mb-5 text-green-800">Vegan Nutrition</h2>
                     <p className='text-gray-700'>
@@ -49,7 +49,7 @@ export default function HomePage() {
                     <img className="w-[50vw] h-[50vh] aspect-square object-cover rounded-lg" src="https://images.unsplash.com/photo-1601039641847-7857b994d704?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXZvY2Fkb3xlbnwwfHwwfHx8MA%3D%3D" alt="Vegan Nutrition" />
                 </figure>
             </div>
-            <div className="flex items-center justify-between gap-5 pb-5 p-5 bg-gray-50">
+            <div className="flex flex-col sm:flex-col md:flex-row items-center justify-between gap-5 pb-5 p-5  bg-gray-50">
                 <figure className="flex-1 p-3">
                     <img className="w-[50vw] h-[50vh] aspect-square object-cover rounded-lg" src="https://images.unsplash.com/photo-1580910365203-91ea9115a319?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BpbmFjaXxlbnwwfHwwfHx8MA%3D%3D" alt="Vegan Diet" />
                 </figure>
@@ -63,7 +63,7 @@ export default function HomePage() {
                     </p>
                 </div>
             </div>
-            <div className="flex items-center justify-between gap-5 pb-5 p-5 bg-green-200">
+            <div className="flex flex-col sm:flex-col md:flex-row items-center justify-between gap-5 pb-5 p-5 bg-green-200">
                 <div className="flex-1 p-3">
                     <h2 className="text-2xl font-bold mb-5 text-green-800">Potential health benefits of being vegan</h2>
                     <p className='text-gray-700'>

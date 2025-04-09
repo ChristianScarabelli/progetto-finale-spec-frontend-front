@@ -10,7 +10,7 @@ function Card({ food, onRemove, variant = "default" }) {
 
   return (
     <div
-      className={`rounded-lg p-4 shadow-md bg-green-100 hover:shadow-xl relative group ${variant === "compare" ? "bg-blue-100" : "bg-green-100"
+      className={`rounded-lg p-4 shadow-md bg-green-100 hover:shadow-xl relative group ${variant === "compare" ? "bg-blue-100 w-64 flex-shrink-0" : "bg-green-100"
         }`}
     >
       <Link to={`/foods/${id}`}>

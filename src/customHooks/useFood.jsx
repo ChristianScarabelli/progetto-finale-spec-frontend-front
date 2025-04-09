@@ -62,7 +62,7 @@ export default function useFood() {
         return food.filter((f) => selectedFoodIds.includes(f.id));
     }, [food, selectedFoodIds]);
 
-    // Funzione di fetch delle tasks
+    // Funzione di fetch di Food
     const fetchFood = async () => {
         setIsLoading(true)
         try {

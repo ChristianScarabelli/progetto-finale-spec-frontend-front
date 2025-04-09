@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-50 text-green-600 p-5 pt-8 py-6">
-      <div className='flex flex-wrap justify-between gap-5'>
+      <div className="flex flex-col xs:flex-col sm:flex-col md:flex-row flex-wrap justify-between gap-5">
         {/* Descrizione */}
         <div className="flex-1">
           <h2 className="text-green-800 mb-2 font-bold">Vegan Food</h2>

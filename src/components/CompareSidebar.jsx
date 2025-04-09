@@ -15,14 +15,14 @@ export default function CompareSidebar({ isOpen, onClose, selectedFoods, toggleS
                     ✕
                 </button>
             </div>
-            <div className="p-4 flex gap-4 overflow-x-auto">
+            <div className="p-4 flex gap-4 overflow-x-auto whitespace-nowrap flex-nowrap">
                 {selectedFoods.length > 0 ? (
                     selectedFoods.map((food) => (
                         <Card
                             key={food.id}
                             food={food}
                             onRemove={() => toggleSelection(food.id)}
-                            variant="compare" // Specifica il tipo di card
+                            variant="compare" // Specifico la variante di card
                         />
                     ))
                 ) : (
