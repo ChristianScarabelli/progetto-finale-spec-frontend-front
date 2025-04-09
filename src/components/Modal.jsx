@@ -5,7 +5,7 @@ export default function Modal({
 
     if (!show) return null
 
-    return show && createPortal(
+    return show && createPortal( // Con Portal appendo la modale al body se ci sarà la prop show a true, renderizzandola sopra a tutto il resto
         <div className="fixed inset-0 flex justify-center items-center z-50">
             <div className="fixed inset-0 bg-black opacity-50 z-40"></div> {/* Overlay */}
             <div className="relative flex flex-col gap-5 p-8 rounded-lg bg-gray-50 shadow-2xl z-50"> {/* Modale */}

@@ -1,16 +1,25 @@
-import { memo, useContext } from "react";
+import { memo, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
 import GlobalContext from "../contexts/GlobalContext.jsx";
 
-function FoodRow({ data, checked, onToggle }) {
-    const { favorites, toggleFavorite, selectedFoodIds, toggleSelection } = useContext(GlobalContext)
+function FoodRow({ data }) {
+    const { favorites, toggleFavorite, selectedFoodIds, toggleSelection } = useContext(GlobalContext);
     const { title, category, id } = data;
 
-    // Variabile per il Food favorito
-    const isFavorite = favorites.some((fav) => fav.id === id)
-    // Variabile per il Food selezionato per id
-    const isSelected = selectedFoodIds.includes(id)
+    // Variabile che contiene il Food se è nei preferiti
+    const isFavorite = favorites.some((fav) => fav.id === id);
+    // Variabile che contiene il Food se è selezionato
+    const isSelected = selectedFoodIds.includes(id);
 
+    // Funzione per alternare il preferito
+    const handleToggleFavorite = useCallback(() => {
+        toggleFavorite(data);
+    }, [toggleFavorite, data]);
+
+    // Funzione per alternare la selezione
+    const handleToggleSelection = useCallback(() => {
+        toggleSelection(id);
+    }, [toggleSelection, id]);
 
     return (
         <tr className="not-last:border-b border-green-600 hover:bg-green-100">
@@ -20,19 +29,17 @@ function FoodRow({ data, checked, onToggle }) {
                     type="checkbox"
                     className="cursor-pointer"
                     checked={isSelected}
-                    onChange={() => toggleSelection(id)}
+                    onChange={handleToggleSelection}
                 />
             </td>
-            {/* Titolo del cibo */}
             <td className="py-2 px-4 hover:underline hover:text-blue-400">
                 <Link to={`/foods/${id}`}>{title}</Link>
             </td>
-            {/* Categoria del cibo */}
             <td className="py-2 px-4 text-sm text-gray-500">{category}</td>
             {/* Cuoricino per aggiungere ai preferiti */}
             <td className="py-2 px-4 text-center">
                 <button
-                    onClick={() => toggleFavorite(data)} // Alterna preferito
+                    onClick={handleToggleFavorite} // Alterna preferito
                     className="text-gray-600 hover:text-cyan-600 transition"
                 >
                     {isFavorite ? (

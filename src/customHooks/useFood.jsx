@@ -18,7 +18,7 @@ export default function useFood() {
     // Stato per i preferiti
     const [favorites, setFavorites] = useState(() => {
         const storedFavorites = localStorage.getItem("favorites");
-        return storedFavorites ? JSON.parse(storedFavorites) : [];
+        return storedFavorites ? JSON.parse(storedFavorites) : []; // con JSON.parse ritrasformo la stringa in un oggetto
     });
 
     // Funzione per aggiungere/rimuovere un cibo dai preferiti
@@ -29,7 +29,8 @@ export default function useFood() {
                 ? prevFavorites.filter((fav) => fav.id !== foodItem.id) // Rimuovi dai preferiti
                 : [...prevFavorites, foodItem]; // Aggiungi ai preferiti
 
-            localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Aggiorna localStorage
+            // Aggiorna localStorage
+            localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // trasformo in una stringa JSON perchè localStorage accetta solo stringhe
             return updatedFavorites;
         });
     };
@@ -38,7 +39,8 @@ export default function useFood() {
     const removeFavorite = (foodItem) => {
         setFavorites((prevFavorites) => {
             const updatedFavorites = prevFavorites.filter((fav) => fav.id !== foodItem.id);
-            localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Aggiorna localStorage
+            // Aggiorno localStorage
+            localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
             return updatedFavorites;
         });
     };
@@ -49,18 +51,19 @@ export default function useFood() {
             const updatedSelection = prev.includes(foodId)
                 ? prev.filter((id) => id !== foodId) // Rimuovi dalla selezione
                 : [...prev, foodId]; // Aggiungi alla selezione
-
-            localStorage.setItem("selectedFoods", JSON.stringify(updatedSelection)); // Salva nel localStorage
+            // Salvo nel localStorage
+            localStorage.setItem("selectedFoods", JSON.stringify(updatedSelection));
             return updatedSelection;
         });
     }
 
     // Funzione per ottenere i cibi selezionati
+    // Con useMemo evito di ricalcolare la lista dei selezionati ad ogni render
     const selectedFoods = useMemo(() => {
         return food.filter((f) => selectedFoodIds.includes(f.id));
     }, [food, selectedFoodIds]);
 
-    // Funzione di fetch e merge di Food
+    // Funzione di fetch Food e merge dei dettagli
     const fetchAndMergeFood = async () => {
         setIsLoading(true);
         try {
@@ -69,7 +72,7 @@ export default function useFood() {
             const foodList = responseFood.data;
 
             // Fetch dei dettagli per ogni cibo in parallelo
-            const detailedFoods = await Promise.all(
+            const detailedFoods = await Promise.all( // Aspetto che si risolvano tutte le promise
                 foodList.map(async (foodItem) => {
                     const responseDetail = await axios.get(`${API_URL}/foods/${foodItem.id}`);
                     return { ...foodItem, ...responseDetail.data.food };

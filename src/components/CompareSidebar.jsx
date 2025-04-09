@@ -1,6 +1,18 @@
-import Card from './Card.jsx'
+import { useCallback } from "react";
+import Card from './Card.jsx';
 
 export default function CompareSidebar({ isOpen, onClose, selectedFoods, toggleSelection }) {
+
+    // Funzione per rimuovere un food dalla comparazione
+    // con useCallback si ricrea la funzione solo al cambio dell'oggetto rimosso
+    // e della funzione di toggleSelection
+    const handleRemove = useCallback( // 
+        (id) => {
+            toggleSelection(id);
+        },
+        [toggleSelection]
+    );
+
     return (
         <div
             className={`fixed z-50 bottom-0 left-0 w-full bg-gray-50 shadow-lg transform ${isOpen ? 'translate-y-0' : 'translate-y-full'
@@ -21,8 +33,8 @@ export default function CompareSidebar({ isOpen, onClose, selectedFoods, toggleS
                         <Card
                             key={food.id}
                             food={food}
-                            onRemove={() => toggleSelection(food.id)}
-                            variant="compare" // Specifico la variante di card
+                            onRemove={() => handleRemove(food.id)}
+                            variant="compare"
                         />
                     ))
                 ) : (

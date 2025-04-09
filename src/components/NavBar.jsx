@@ -62,7 +62,7 @@ export default function NavBar({ favorites = [] }) { // Aggiunto valore predefin
             <Sidebar
                 isOpen={isSidebarOpen}
                 onClose={() => setIsSidebarOpen(false)}
-                favoriteFoods={favorites} // Passa favorites come prop
+                favoriteFoods={favorites} // Passo favorites come prop
             />
         </section>
     );

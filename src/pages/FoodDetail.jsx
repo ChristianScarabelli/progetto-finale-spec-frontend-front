@@ -1,14 +1,16 @@
+// React
 import { useParams } from "react-router-dom";
 import { useEffect, useContext } from "react";
+// Components
 import GlobalContext from '../contexts/GlobalContext.jsx';
 import Loader from "../components/Loader.jsx";
 import HealthRate from "../components/HealthRate.jsx";
 
 export default function FoodDetail() {
     // Ottengo l'id dal URL
-    const { id } = useParams();
+    const { id } = useParams()
 
-    const { food, fetchAndMergeFood, isLoading, favorites, toggleFavorite } = useContext(GlobalContext);
+    const { food, fetchAndMergeFood, isLoading, favorites, toggleFavorite } = useContext(GlobalContext)
 
     // Effettuo il fetch dei dati al montaggio del componente
     useEffect(() => {
@@ -17,13 +19,14 @@ export default function FoodDetail() {
     }, []);
 
     // Trovo il cibo specifico dall'elenco
-    const selectedFood = food.find((item) => item.id === Number(id)); // Converto id in numero
+    const selectedFood = food.find((item) => item.id === Number(id)) // Converto l'id in numero
+
+    // Verifico se il cibo è nei preferiti
+    const isFavorite = selectedFood && favorites.some((fav) => fav.id === selectedFood.id)
 
     if (isLoading) {
         return <Loader />;
     }
-
-    const isFavorite = selectedFood && favorites.some((fav) => fav.id === selectedFood.id);
 
     return (
         <section className="flex justify-center mx-auto p-4 pt-[82px] pb-10 bg-green-200 z-0">

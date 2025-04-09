@@ -3,7 +3,6 @@ import React from "react";
 
 export default function Footer() {
 
-
   return (
     <footer className="bg-gray-50 text-green-600 p-5 pt-8 py-6">
       <div className="flex flex-col xs:flex-col sm:flex-col md:flex-row flex-wrap justify-between gap-5">
@@ -30,7 +29,6 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-
         {/* Social Media */}
         <div className='flex-1'>
           <h3 className="text-green-800 mb-2 font-bold">Follow us</h3>
@@ -78,7 +76,6 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-
       {/* Copyright */}
       <div className="text-center mt-5 border-t border-green-600 pt-3 text-sm text-gray-600">
         <p>&copy; 2025 Vegan Food. All rights reserved.</p>

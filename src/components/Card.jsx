@@ -1,12 +1,28 @@
-import placeholder from "../assets/placeholder.png";
+// React
+import { memo, useState, useCallback } from "react";
 import { Link } from "react-router";
+// Components
 import HealthRate from "./HealthRate";
-import { memo, useState } from "react";
 import Modal from "./Modal";
+import placeholder from "../assets/placeholder.png";
 
 function Card({ food, onRemove, variant = "default" }) {
   const { id } = food;
+  // Stato per la visione della modale
   const [isShow, setIsShow] = useState(false);
+
+  // Funzione per rimuovere il cibo dai preferiti o dalla comparazione
+  // con useCallback si ricrea la funzione solo al cambio dell'oggetto rimosso 
+  const handleRemove = useCallback(() => {
+    onRemove(food);
+    setIsShow(false);
+  }, [onRemove, food]);
+
+  // Funzione per alternare la visione della modale (dallo stato precendente al suo contrario)
+  // con useCallback si ricrea solo al cambio dello stato della modale
+  const toggleModal = useCallback(() => {
+    setIsShow((prev) => !prev);
+  }, []);
 
   return (
     <div
@@ -22,10 +38,11 @@ function Card({ food, onRemove, variant = "default" }) {
       </Link>
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-green-600">{food.title}</h2>
+        {/* Variante di card e modale per i preferiti  */}
         {variant === "favorites" && (
           <button
             className="opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-            onClick={() => setIsShow(true)}
+            onClick={toggleModal}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +58,19 @@ function Card({ food, onRemove, variant = "default" }) {
             </svg>
           </button>
         )}
+        {variant === "favorites" && (
+          <Modal
+            title="Remove food"
+            content={`Are you sure you want to remove "${food.title}" from your favorites?`}
+            show={isShow}
+            onClose={toggleModal}
+            onConfirm={handleRemove}
+            confirmText="Remove"
+            confirmButtonClasses="bg-red-500 hover:bg-red-600"
+          />
+        )}
       </div>
+      {/* Variante di card e modale per la comparazione  */}
       {variant === "compare" && (
         <div className="mt-2">
           <span className="text-sm text-gray-700">
@@ -54,7 +83,7 @@ function Card({ food, onRemove, variant = "default" }) {
             <HealthRate className="mt-2" rate={food.healthRate || 0} />
             <button
               className="opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-              onClick={() => setIsShow(true)}
+              onClick={toggleModal}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,29 +103,12 @@ function Card({ food, onRemove, variant = "default" }) {
             title="Remove food"
             content={`Are you sure you want to remove "${food.title}" from the comparison?`}
             show={isShow}
-            onClose={() => setIsShow(false)}
-            onConfirm={() => {
-              onRemove(food);
-              setIsShow(false);
-            }}
+            onClose={toggleModal}
+            onConfirm={handleRemove}
             confirmText="Remove"
             confirmButtonClasses="bg-red-500 hover:bg-red-600"
           />
         </div>
-      )}
-      {variant === "favorites" && (
-        <Modal
-          title="Remove food"
-          content={`Are you sure you want to remove "${food.title}" from your favorites?`}
-          show={isShow}
-          onClose={() => setIsShow(false)}
-          onConfirm={() => {
-            onRemove(food);
-            setIsShow(false);
-          }}
-          confirmText="Remove"
-          confirmButtonClasses="bg-red-500 hover:bg-red-600"
-        />
       )}
     </div>
   );

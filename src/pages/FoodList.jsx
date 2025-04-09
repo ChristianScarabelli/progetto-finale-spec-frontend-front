@@ -1,4 +1,6 @@
+// React 
 import { useCallback, useContext, useEffect, useMemo, useState, useRef } from 'react'
+// Components
 import GlobalContext from '../contexts/GlobalContext.jsx'
 import FoodRow from '../components/FoodRow.jsx'
 import Loader from '../components/Loader.jsx'
@@ -55,18 +57,18 @@ export default function FoodList() {
     useEffect(() => {
         fetchAndMergeFood();
         window.scrollTo(0, 0); // Scroll all'inzio al montaggio del componente
-        inputRef.current?.focus();
+        inputRef.current?.focus(); // Autofocus sull'input di ricerca al montaggio del componente
     }, [])
 
     // Funzione per gestire l'ordine
-    const handleSort = (field) => {
+    const handleSort = useCallback((field) => {
         if (sortBy === field) {
-            setSortOrder(sortOrder * -1)
+            setSortOrder((prevOrder) => prevOrder * -1);
         } else {
-            setSortBy(field)
-            setSortOrder(1)
+            setSortBy(field);
+            setSortOrder(1);
         }
-    }
+    }, [sortBy]);
 
     // Funzione per ottenere categorie uniche
     const uniqueCategories = useMemo(() => {
@@ -75,7 +77,7 @@ export default function FoodList() {
     }, [food])
 
     // Funzione per filtrare e ordinare i cibi
-    const filteredFood = useMemo(() => {
+    const filteredFood = useMemo(() => { // Con useMemo evito di ricalcolare se non cambiano i parametri
         if (!food) return []
 
         // Filtro per categoria selezionata
@@ -104,10 +106,8 @@ export default function FoodList() {
     // Funzione per la ricerca con debounce
     const handleDebouncedSearch = useCallback(debounce(setSearchQuery, 500), [])
 
-    console.log(selectedFoods)
-
     // Funzione per mostrare il tooltip
-    const showTooltip = (content, event) => {
+    const showTooltip = useCallback((content, event) => {
         const { pageX, pageY } = event; // Ottengo la posizione del mouse rispetto alla pagina
         setTooltipTimeout(
             setTimeout(() => {
@@ -118,13 +118,13 @@ export default function FoodList() {
                 });
             }, 300)
         );
-    };
+    }, []);
 
     // Funzione per nascondere il tooltip
-    const hideTooltip = () => {
+    const hideTooltip = useCallback(() => {
         clearTimeout(tooltipTimeout); // Cancello il timeout se l'utente lascia prima
         setTooltip({ visible: false, content: '', position: { x: 0, y: 0 } });
-    };
+    }, [tooltipTimeout]);
 
     return (
         <>
