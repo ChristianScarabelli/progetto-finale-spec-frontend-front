@@ -238,19 +238,27 @@ export default function FoodList() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredFood.map((food) => {
-                                    const isFavorite = favorites.some((fav) => fav.id === food.id);
-                                    return (
-                                        <FoodRow
-                                            key={food.id}
-                                            data={food}
-                                            isFavorite={isFavorite}
-                                            onClick={() => toggleFavorite(food)}
-                                            checked={false}
-                                            onToggle={() => { }}
-                                        />
-                                    );
-                                })}
+                                {filteredFood.length > 0 ? (
+                                    filteredFood.map((food) => {
+                                        const isFavorite = favorites.some((fav) => fav.id === food.id);
+                                        return (
+                                            <FoodRow
+                                                key={food.id}
+                                                data={food}
+                                                isFavorite={isFavorite}
+                                                onClick={() => toggleFavorite(food)}
+                                                checked={false}
+                                                onToggle={() => { }}
+                                            />
+                                        );
+                                    })
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4" className="text-center py-5 text-gray-500">
+                                            Food not found
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                         {/* Tooltip */}

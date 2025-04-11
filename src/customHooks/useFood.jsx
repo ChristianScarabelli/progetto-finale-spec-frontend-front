@@ -1,6 +1,17 @@
 import { useState, useMemo } from "react";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL
+const API_URL = import.meta.env.VITE_API_URL;
+
+// Helper per leggere dal localStorage
+const readFromLocalStorage = (key) => {
+    const storedValue = localStorage.getItem(key);
+    return storedValue ? JSON.parse(storedValue) : [];
+};
+
+// Helper per scrivere nel localStorage
+const writeToLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
 
 export default function useFood() {
 
@@ -10,16 +21,10 @@ export default function useFood() {
     const [isLoading, setIsLoading] = useState(false);
 
     // Stato per i cibi selezionati per il comparatore
-    const [selectedFoodIds, setSelectedFoodIds] = useState(() => {
-        const storedSelected = localStorage.getItem("selectedFoods");
-        return storedSelected ? JSON.parse(storedSelected) : [];
-    })
+    const [selectedFoodIds, setSelectedFoodIds] = useState(() => readFromLocalStorage("selectedFoods"));
 
     // Stato per i preferiti
-    const [favorites, setFavorites] = useState(() => {
-        const storedFavorites = localStorage.getItem("favorites");
-        return storedFavorites ? JSON.parse(storedFavorites) : []; // con JSON.parse ritrasformo la stringa in un oggetto
-    });
+    const [favorites, setFavorites] = useState(() => readFromLocalStorage("favorites"));
 
     // Funzione per aggiungere/rimuovere un cibo dai preferiti
     const toggleFavorite = (foodItem) => {
@@ -30,7 +35,7 @@ export default function useFood() {
                 : [...prevFavorites, foodItem]; // Aggiungi ai preferiti
 
             // Aggiorna localStorage
-            localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // trasformo in una stringa JSON perchè localStorage accetta solo stringhe
+            writeToLocalStorage("favorites", updatedFavorites);
             return updatedFavorites;
         });
     };
@@ -40,7 +45,7 @@ export default function useFood() {
         setFavorites((prevFavorites) => {
             const updatedFavorites = prevFavorites.filter((fav) => fav.id !== foodItem.id);
             // Aggiorno localStorage
-            localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+            writeToLocalStorage("favorites", updatedFavorites);
             return updatedFavorites;
         });
     };
@@ -52,7 +57,7 @@ export default function useFood() {
                 ? prev.filter((id) => id !== foodId) // Rimuovi dalla selezione
                 : [...prev, foodId]; // Aggiungi alla selezione
             // Salvo nel localStorage
-            localStorage.setItem("selectedFoods", JSON.stringify(updatedSelection));
+            writeToLocalStorage("selectedFoods", updatedSelection);
             return updatedSelection;
         });
     }
@@ -83,8 +88,8 @@ export default function useFood() {
             setFood(detailedFoods);
 
             // Filtra preferiti e cibi selezionati basandosi sul localStorage
-            const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-            const storedSelected = JSON.parse(localStorage.getItem("selectedFoods")) || [];
+            const storedFavorites = readFromLocalStorage("favorites");
+            const storedSelected = readFromLocalStorage("selectedFoods");
             setFavorites(detailedFoods.filter((food) => storedFavorites.some((fav) => fav.id === food.id)));
             setSelectedFoodIds(storedSelected.filter((id) => detailedFoods.some((food) => food.id === id)));
         } catch (err) {

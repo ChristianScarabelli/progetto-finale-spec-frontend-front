@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import GlobalContext from "../contexts/GlobalContext.jsx";
 import Card from '../components/Card.jsx';
 
-export default function Sidebar({ isOpen, onClose }) {
+function Sidebar({ isOpen, onClose }) {
     // Preferiti e funzione di rimozione preferiti
     const { favorites, removeFavorite } = useContext(GlobalContext)
 
@@ -37,3 +37,5 @@ export default function Sidebar({ isOpen, onClose }) {
         </div>
     );
 }
+
+export default memo(Sidebar);

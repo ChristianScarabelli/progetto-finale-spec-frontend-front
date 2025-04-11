@@ -1,0 +1,202 @@
+[
+  {
+    "title": "Avocado",
+    "category": "Fruit",
+    "description": "Creamy fruit rich in healthy fats, great for heart health.",
+    "image": "https://images.unsplash.com/photo-1601039641847-7857b994d704?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXZvY2Fkb3xlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 1,
+    "createdAt": "2025-04-07T08:49:59.959Z",
+    "updatedAt": "2025-04-07T09:37:22.628Z"
+  },
+  {
+    "title": "Red lentils",
+    "category": "Legumes",
+    "description": "High-protein legume that's easy to digest.",
+    "image": "https://images.unsplash.com/photo-1730591857303-0fa44be3f677?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVudGljY2hpZSUyMHJvc3NlfGVufDB8fDB8fHww",
+    "healthRate": 5,
+    "id": 2,
+    "createdAt": "2025-04-07T08:50:32.480Z",
+    "updatedAt": "2025-04-07T08:50:32.480Z"
+  },
+  {
+    "title": "Almonds",
+    "category": "Nuts",
+    "description": "Rich in vitamin E, magnesium, and healthy fats.",
+    "image": "https://images.unsplash.com/photo-1508779018996-601e37fa274e?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8TWFuZG9ybGV8ZW58MHx8MHx8fDA%3D",
+    "healthRate": 5,
+    "id": 3,
+    "createdAt": "2025-04-07T08:50:45.587Z",
+    "updatedAt": "2025-04-07T08:50:45.587Z"
+  },
+  {
+    "title": "Banana",
+    "category": "Fruit",
+    "description": "Energizing fruit, rich in potassium and fiber.",
+    "image": "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFuYW5hfGVufDB8fDB8fHww",
+    "healthRate": 4,
+    "id": 4,
+    "createdAt": "2025-04-07T08:50:55.774Z",
+    "updatedAt": "2025-04-07T08:50:55.774Z"
+  },
+  {
+    "title": "Chia seeds",
+    "category": "Seeds",
+    "description": "Tiny seeds rich in omega-3, fiber, and protein.",
+    "image": "https://images.unsplash.com/photo-1642497393633-a19e9231fb92?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U2VtaSUyMGRpJTIwY2hpYXxlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 5,
+    "createdAt": "2025-04-07T08:51:05.289Z",
+    "updatedAt": "2025-04-07T08:51:05.289Z"
+  },
+  {
+    "title": "Quinoa",
+    "category": "Grains",
+    "description": "Gluten-free pseudocereal rich in complete proteins.",
+    "image": "https://images.unsplash.com/photo-1586201375799-47cd24c3f595?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8UXVpbm9hfGVufDB8fDB8fHww",
+    "healthRate": 5,
+    "id": 6,
+    "createdAt": "2025-04-07T08:51:15.393Z",
+    "updatedAt": "2025-04-07T08:51:15.393Z"
+  },
+  {
+    "title": "Spinach",
+    "category": "Vegetable",
+    "description": "Leafy green vegetable rich in iron and antioxidants.",
+    "image": "https://images.unsplash.com/photo-1580910365203-91ea9115a319?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BpbmFjaXxlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 7,
+    "createdAt": "2025-04-07T08:51:24.714Z",
+    "updatedAt": "2025-04-07T08:51:24.714Z"
+  },
+  {
+    "title": "Chickpeas",
+    "category": "Legumes",
+    "description": "Excellent source of plant-based protein and fiber.",
+    "image": "https://plus.unsplash.com/premium_photo-1666649675085-406bc5cea8e0?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y2VjaXxlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 8,
+    "createdAt": "2025-04-07T08:51:33.887Z",
+    "updatedAt": "2025-04-07T08:51:33.887Z"
+  },
+  {
+    "title": "Walnuts",
+    "category": "Nuts",
+    "description": "Nut high in omega-3 fatty acids.",
+    "image": "https://images.unsplash.com/photo-1626012109496-21f579f648dd?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bm9jaXxlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 9,
+    "createdAt": "2025-04-07T08:51:41.839Z",
+    "updatedAt": "2025-04-07T08:51:41.839Z"
+  },
+  {
+    "title": "Spelt",
+    "category": "Grains",
+    "description": "Ancient grain high in fiber, great for digestion.",
+    "image": "https://images.unsplash.com/photo-1656918828529-345b77bb06e9?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFycm98ZW58MHx8MHx8fDA%3D",
+    "healthRate": 4,
+    "id": 10,
+    "createdAt": "2025-04-07T08:51:49.641Z",
+    "updatedAt": "2025-04-07T08:51:49.641Z"
+  },
+  {
+    "title": "Blueberries",
+    "category": "Fruit",
+    "description": "Berries rich in antioxidants and vitamin C.",
+    "image": "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWlydGlsbGl8ZW58MHx8MHx8fDA%3D",
+    "healthRate": 5,
+    "id": 11,
+    "createdAt": "2025-04-07T08:51:58.228Z",
+    "updatedAt": "2025-04-07T08:51:58.228Z"
+  },
+  {
+    "title": "Pumpkin seeds",
+    "category": "Seeds",
+    "description": "Rich in zinc, magnesium, and plant-based proteins.",
+    "image": "https://plus.unsplash.com/premium_photo-1674347954785-7604a0220776?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2VtaSUyMGRpJTIwenVjY2F8ZW58MHx8MHx8fDA%3D",
+    "healthRate": 5,
+    "id": 12,
+    "createdAt": "2025-04-07T08:52:06.923Z",
+    "updatedAt": "2025-04-07T08:52:06.923Z"
+  },
+  {
+    "title": "Broccoli",
+    "category": "Vegetable",
+    "description": "Cruciferous vegetable with anti-inflammatory properties.",
+    "image": "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnJvY2NvbGl8ZW58MHx8MHx8fDA%3D",
+    "healthRate": 5,
+    "id": 13,
+    "createdAt": "2025-04-07T08:52:14.627Z",
+    "updatedAt": "2025-04-07T08:52:14.627Z"
+  },
+  {
+    "title": "Tofu",
+    "category": "Soy-based",
+    "description": "Versatile source of plant-based protein, made from soy.",
+    "image": "https://plus.unsplash.com/premium_photo-1664648005366-8737ef6043d5?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dG9mdXxlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 14,
+    "createdAt": "2025-04-07T08:52:22.021Z",
+    "updatedAt": "2025-04-07T08:52:22.021Z"
+  },
+  {
+    "title": "Black beans",
+    "category": "Legumes",
+    "description": "Protein-rich legume also high in iron and fiber.",
+    "image": "https://plus.unsplash.com/premium_photo-1675237625091-e40de414b510?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmFnaW9saSUyMG5lcml8ZW58MHx8MHx8fDA%3D",
+    "healthRate": 5,
+    "id": 15,
+    "createdAt": "2025-04-07T08:52:32.159Z",
+    "updatedAt": "2025-04-07T08:52:32.159Z"
+  },
+  {
+    "title": "Oats",
+    "category": "Grains",
+    "description": "Whole grain great for breakfast, rich in fiber.",
+    "image": "https://plus.unsplash.com/premium_photo-1661457816683-86bc95383edd?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEZpb2NjaGklMjBkJUUyJTgwJTk5YXZlbmF8ZW58MHx8MHx8fDA%3D",
+    "healthRate": 4,
+    "id": 16,
+    "createdAt": "2025-04-07T08:52:41.225Z",
+    "updatedAt": "2025-04-07T08:52:41.225Z"
+  },
+  {
+    "title": "Papaya",
+    "category": "Fruit",
+    "description": "Tropical fruit rich in digestive enzymes and vitamin A.",
+    "image": "https://images.unsplash.com/photo-1541472596887-494ee5c0fe30?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGFwYXlhfGVufDB8fDB8fHww",
+    "healthRate": 4,
+    "id": 17,
+    "createdAt": "2025-04-07T08:52:49.115Z",
+    "updatedAt": "2025-04-07T08:52:49.115Z"
+  },
+  {
+    "title": "Kale",
+    "category": "Vegetable",
+    "description": "Superfood rich in calcium, iron, and vitamin K.",
+    "image": "https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Q2F2b2xvJTIwcmljY2lvJTIwKGthbGUpfGVufDB8fDB8fHww",
+    "healthRate": 5,
+    "id": 18,
+    "createdAt": "2025-04-07T08:52:57.143Z",
+    "updatedAt": "2025-04-07T08:52:57.143Z"
+  },
+  {
+    "title": "Tempeh",
+    "category": "Soy Product",
+    "description": "Fermented soy rich in protein and probiotics.",
+    "image": "https://images.unsplash.com/photo-1716801564904-5605f562b664?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dGVtcGVofGVufDB8fDB8fHww",
+    "healthRate": 5,
+    "id": 19,
+    "createdAt": "2025-04-07T08:53:04.329Z",
+    "updatedAt": "2025-04-07T08:53:04.329Z"
+  },
+  {
+    "title": "Flax Seeds",
+    "category": "Seeds",
+    "description": "Rich in fiber and omega-3 fatty acids, great for gut health.",
+    "image": "https://images.unsplash.com/photo-1642497393440-4b5cc5f03ff5?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U2VtaSUyMGRpJTIwbGlub3xlbnwwfHwwfHx8MA%3D%3D",
+    "healthRate": 5,
+    "id": 20,
+    "createdAt": "2025-04-07T08:53:13.893Z",
+    "updatedAt": "2025-04-07T08:53:13.893Z"
+  }
+]

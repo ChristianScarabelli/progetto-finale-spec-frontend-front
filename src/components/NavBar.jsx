@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import logo from '../assets/broccolo.svg';
 import Sidebar from './Sidebar';
 
@@ -7,6 +7,10 @@ export default function NavBar({ favorites = [] }) { // Aggiunto valore predefin
 
     // Stato per l'apertura della sidebar
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    // Memorizza le funzioni per aprire e chiudere la sidebar
+    const handleSidebarOpen = useCallback(() => setIsSidebarOpen(true), []);
+    const handleSidebarClose = useCallback(() => setIsSidebarOpen(false), []);
 
     return (
         <section className="fixed top-0 left-0 w-full">
@@ -48,8 +52,7 @@ export default function NavBar({ favorites = [] }) { // Aggiunto valore predefin
                         strokeWidth={1.5}
                         stroke="currentColor"
                         className="size-6 text-gray-600 hover:text-cyan-600 transition-colors duration-300 cursor-pointer"
-                        onClick={() => setIsSidebarOpen(true)}
-
+                        onClick={handleSidebarOpen}
                     >
                         <path
                             strokeLinecap="round"
@@ -61,7 +64,7 @@ export default function NavBar({ favorites = [] }) { // Aggiunto valore predefin
             </nav>
             <Sidebar
                 isOpen={isSidebarOpen}
-                onClose={() => setIsSidebarOpen(false)}
+                onClose={handleSidebarClose}
                 favoriteFoods={favorites} // Passo favorites come prop
             />
         </section>
